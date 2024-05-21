@@ -40,6 +40,6 @@ export const appRoutes = [
   {
     path: "/login",
     component: Login,
-    requiresAuth: true,
+    requiresAuth: false,
   },
 ];

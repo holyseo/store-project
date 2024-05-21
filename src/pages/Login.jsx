@@ -38,7 +38,7 @@ const Login = ({ setUser, setIsLogged }) => {
         Password
       </label>
       <input
-        type="text"
+        type="password"
         name="password"
         className="login-inp"
         placeholder="Password"

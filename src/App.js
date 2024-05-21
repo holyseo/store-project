@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import "./App.css";
 import Navbar from "./components/navbar";
 import { appRoutes } from "./routes";
@@ -23,22 +23,35 @@ function App() {
       />
       <Suspense fallback={() => <h1>Loading...</h1>}>
         <Routes>
-          {appRoutes.map((route) => (
-            <Route
-              path={route.path}
-              element={
-                <route.component
-                  categoryRef={categoryRef}
-                  cartItems={cartItems}
-                  setCartItems={setCartItems}
-                  setUser={setUser}
-                  setIsLogged={setIsLogged}
-                />
-              }
-            ></Route>
-          ))}
+          {appRoutes.map((route) =>
+            route.requiresAuth && !isLogged ? (
+              <Route
+                key={route.path}
+                exact
+                path={route.path}
+                element={<Navigate replace to={"/login"} />}
+              />
+            ) : (
+              <Route
+                key={route.path}
+                exact
+                path={route.path}
+                element={
+                  <route.component
+                    categoryRef={categoryRef}
+                    cartItems={cartItems}
+                    setCartItems={setCartItems}
+                    setUser={setUser}
+                    setIsLogged={setIsLogged}
+                    user={user}
+                  />
+                }
+              ></Route>
+            )
+          )}
         </Routes>
       </Suspense>
+      {console.log(isLogged)}
     </div>
   );
 }
