@@ -9,6 +9,7 @@ export const ALLOWED_CATEGORIES = {
 const Products = lazy(() => import("./pages/Products"));
 const Cart = lazy(() => import("./pages/Cart"));
 const Checkout = lazy(() => import("./pages/Checkout"));
+const Login = lazy(() => import("./pages/Login"));
 
 export const appRoutes = [
   {
@@ -34,6 +35,11 @@ export const appRoutes = [
   {
     path: "/checkout",
     component: Checkout,
+    requiresAuth: true,
+  },
+  {
+    path: "/login",
+    component: Login,
     requiresAuth: true,
   },
 ];

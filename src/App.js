@@ -11,11 +11,15 @@ function App() {
   };
   const categoryRef = useRef(null);
   const [cartItems, setCartItems] = useState(cartInitialState);
+  const [user, setUser] = useState({});
+  const [isLogged, setIsLogged] = useState(false);
+
   return (
     <div>
       <Navbar
         categoryRef={categoryRef}
         cartItemsCount={cartItems.numberOfItems}
+        isLogged={isLogged}
       />
       <Suspense fallback={() => <h1>Loading...</h1>}>
         <Routes>
@@ -27,6 +31,8 @@ function App() {
                   categoryRef={categoryRef}
                   cartItems={cartItems}
                   setCartItems={setCartItems}
+                  setUser={setUser}
+                  setIsLogged={setIsLogged}
                 />
               }
             ></Route>
