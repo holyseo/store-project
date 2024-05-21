@@ -7,6 +7,8 @@ export const ALLOWED_CATEGORIES = {
 };
 
 const Products = lazy(() => import("./pages/Products"));
+const Cart = lazy(() => import("./pages/Cart"));
+const Checkout = lazy(() => import("./pages/Checkout"));
 
 export const appRoutes = [
   {
@@ -23,5 +25,15 @@ export const appRoutes = [
     path: "/products/:category?",
     component: Products,
     requiresAuth: false,
+  },
+  {
+    path: "/cart",
+    component: Cart,
+    requiresAuth: false,
+  },
+  {
+    path: "/checkout",
+    component: Checkout,
+    requiresAuth: true,
   },
 ];

@@ -5,13 +5,13 @@ import MensClothing from "../assets/img/men-clothe.png";
 import WomensClothing from "../assets/img/women-clothe.png";
 import "./styles.css";
 
-const Home = () => {
+const Home = ({ categoryRef }) => {
   return (
     <div>
       <Hero />
       <hr></hr>
       <h2>Categories</h2>
-      <div className="cat-cont">
+      <div className="cat-cont" ref={categoryRef}>
         <CategoryCard imgSrc={MensClothing} title={"Men's"} />
         <CategoryCard imgSrc={WomensClothing} title={"Women's"} />
       </div>

@@ -5,7 +5,7 @@ import "./styles.css";
 import { ALLOWED_CATEGORIES } from "../routes";
 import { useParams } from "react-router-dom";
 
-const Products = () => {
+const Products = ({ setCartItems }) => {
   const [products, setProducts] = useState([]);
   const [allProducts, setAllProducts] = useState([]);
   const [activeCat, setActiveCat] = useState("All");
@@ -23,8 +23,9 @@ const Products = () => {
   useEffect(() => {
     if (category) {
       const getCategoryProducts = async () => {
-        const response = await fetchCategoryProducts();
+        const response = await fetchCategoryProducts(category);
         setProducts(response);
+        setAllProducts(response);
       };
       getCategoryProducts().catch((e) => console.error("Error:", e));
     } else {
@@ -35,45 +36,52 @@ const Products = () => {
       };
       getProducts().catch((e) => console.error("Error:", e));
     }
-  }, []);
+  }, [category]);
 
   return (
     <div>
-      <div className="products-cont"></div>
-      <div className="category-select">
-        <span
-          className={`select-cat-span ${
-            activeCat === "All" ? "cat-active" : ""
-          }`}
-          onClick={() => {
-            handleFilteredProducts("ALL");
-            setActiveCat("All");
-          }}
-        >
-          All
-        </span>
-        <span
-          className={`select-cat-span ${
-            activeCat === "Women's" ? "cat-active" : ""
-          }`}
-          onClick={() => {
-            handleFilteredProducts(ALLOWED_CATEGORIES.WOMENS);
-            setActiveCat("Women's");
-          }}
-        >
-          Women's
-        </span>
-        <span
-          className={`select-cat-span ${
-            activeCat === "Men's" ? "cat-active" : ""
-          }`}
-          onClick={() => {
-            handleFilteredProducts(ALLOWED_CATEGORIES.MENS);
-            setActiveCat("Men's");
-          }}
-        >
-          Men's
-        </span>
+      <div className="products-cont">
+        {!category ? (
+          <div className="category-select">
+            <span
+              className={`select-cat-span ${
+                activeCat === "All" ? "cat-active" : ""
+              }`}
+              onClick={() => {
+                handleFilteredProducts("ALL");
+                setActiveCat("All");
+              }}
+            >
+              All
+            </span>
+            <span
+              className={`select-cat-span ${
+                activeCat === "Women's" ? "cat-active" : ""
+              }`}
+              onClick={() => {
+                handleFilteredProducts(ALLOWED_CATEGORIES.WOMENS);
+                setActiveCat("Women's");
+              }}
+            >
+              Women's
+            </span>
+            <span
+              className={`select-cat-span ${
+                activeCat === "Men's" ? "cat-active" : ""
+              }`}
+              onClick={() => {
+                handleFilteredProducts(ALLOWED_CATEGORIES.MENS);
+                setActiveCat("Men's");
+              }}
+            >
+              Men's
+            </span>
+          </div>
+        ) : (
+          <div className="category-select">
+            <span>{category}</span>
+          </div>
+        )}
       </div>
       <div className="product-card-cont">
         {products.length > 0 &&
@@ -89,7 +97,7 @@ const Products = () => {
                   productName={product.title}
                   description={product.description}
                   price={product.price}
-                  // setCartItems={setCartItems}
+                  setCartItems={setCartItems}
                 />
               )
           )}
