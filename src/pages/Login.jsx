@@ -6,7 +6,10 @@ const Login = ({ setUser, setIsLogged }) => {
   const [password, setPassword] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
 
+  const [loading, setLoading] = useState(false);
+
   const handleLogin = (e) => {
+    setLoading(true);
     e.preventDefault();
     const getUser = async () => {
       const response = await authenticateUser(email, password);
@@ -14,8 +17,9 @@ const Login = ({ setUser, setIsLogged }) => {
       response
         ? (setUser(response), setIsLogged(true))
         : setErrorMsg("Invalid email or password");
-      console.log(response);
+      setLoading(false);
     };
+
     getUser();
   };
   return (
@@ -47,8 +51,12 @@ const Login = ({ setUser, setIsLogged }) => {
           setPassword(e.target.value);
         }}
       />
-      <button type="submit" onClick={handleLogin}>
-        Submit
+      <button
+        type="submit"
+        onClick={handleLogin}
+        disabled={loading ? true : false}
+      >
+        {loading ? "Loading..." : "Submit"}
       </button>
     </form>
   );

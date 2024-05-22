@@ -10,7 +10,7 @@ const Navbar = ({ cartItemsCount, isLogged, categoryRef }) => {
     navigate("/");
     setTimeout(() => {
       categoryRef.current?.scrollIntoView({ behavior: "smooth" });
-    }, 200);
+    }, 500);
   };
   return (
     <nav>
