@@ -1,8 +1,10 @@
-import { Navigate, Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import "./App.css";
 import Navbar from "./components/navbar";
 import { appRoutes } from "./routes";
 import { Suspense, useRef, useState } from "react";
+import { CSSTransition, SwitchTransition } from "react-transition-group";
+
 function App() {
   const cartInitialState = {
     totalAmount: 0,
@@ -13,6 +15,7 @@ function App() {
   const [cartItems, setCartItems] = useState(cartInitialState);
   const [user, setUser] = useState({});
   const [isLogged, setIsLogged] = useState(false);
+  const location = useLocation();
 
   return (
     <div>
@@ -21,37 +24,45 @@ function App() {
         cartItemsCount={cartItems.numberOfItems}
         isLogged={isLogged}
       />
-      <Suspense fallback={() => <h1>Loading...</h1>}>
-        <Routes>
-          {appRoutes.map((route) =>
-            route.requiresAuth && !isLogged ? (
-              <Route
-                key={route.path}
-                exact
-                path={route.path}
-                element={<Navigate replace to={"/login"} />}
-              />
-            ) : (
-              <Route
-                key={route.path}
-                exact
-                path={route.path}
-                element={
-                  <route.component
-                    categoryRef={categoryRef}
-                    cartItems={cartItems}
-                    setCartItems={setCartItems}
-                    setUser={setUser}
-                    setIsLogged={setIsLogged}
-                    user={user}
+      <SwitchTransition component={null}>
+        <CSSTransition
+          key={location.pathname}
+          classNames="fade"
+          timeout={300}
+          unmountOnExit
+        >
+          <Suspense fallback={() => <h1>Loading...</h1>}>
+            <Routes location={location}>
+              {appRoutes.map((route) =>
+                route.requiresAuth && !isLogged ? (
+                  <Route
+                    key={route.path}
+                    exact
+                    path={route.path}
+                    element={<Navigate replace to={"/login"} />}
                   />
-                }
-              ></Route>
-            )
-          )}
-        </Routes>
-      </Suspense>
-      {console.log(isLogged)}
+                ) : (
+                  <Route
+                    key={route.path}
+                    exact
+                    path={route.path}
+                    element={
+                      <route.component
+                        categoryRef={categoryRef}
+                        cartItems={cartItems}
+                        setCartItems={setCartItems}
+                        setUser={setUser}
+                        setIsLogged={setIsLogged}
+                        user={user}
+                      />
+                    }
+                  ></Route>
+                )
+              )}
+            </Routes>
+          </Suspense>
+        </CSSTransition>
+      </SwitchTransition>
     </div>
   );
 }
