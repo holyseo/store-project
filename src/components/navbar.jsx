@@ -19,11 +19,11 @@ const Navbar = ({ cartItemsCount, isLogged, categoryRef }) => {
           Tee-<span style={{ fontWeight: "400" }}>store</span>
         </h2>
         <ul className="nav-ul">
-          <Link to="products">Products</Link>
+          <Link to="/products">Products</Link>
           <span className="about-span" onClick={handleNavigateScroll}>
             Shop
           </span>
-          <a href="##">About</a>
+          <Link to="/about">About</Link>
         </ul>
       </div>
 

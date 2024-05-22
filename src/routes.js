@@ -1,5 +1,6 @@
 import { lazy } from "react";
 import Home from "./pages/Home";
+import NotFound from "./pages/NotFound";
 
 export const ALLOWED_CATEGORIES = {
   MENS: "men's clothing",
@@ -10,6 +11,7 @@ const Products = lazy(() => import("./pages/Products"));
 const Cart = lazy(() => import("./pages/Cart"));
 const Checkout = lazy(() => import("./pages/Checkout"));
 const Login = lazy(() => import("./pages/Login"));
+const About = lazy(() => import("./pages/About"));
 
 export const appRoutes = [
   {
@@ -40,6 +42,16 @@ export const appRoutes = [
   {
     path: "/login",
     component: Login,
+    requiresAuth: false,
+  },
+  {
+    path: "/about",
+    component: About,
+    requiresAuth: false,
+  },
+  {
+    path: "*",
+    component: NotFound,
     requiresAuth: false,
   },
 ];
