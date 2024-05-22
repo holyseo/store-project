@@ -12,6 +12,7 @@ const Cart = lazy(() => import("./pages/Cart"));
 const Checkout = lazy(() => import("./pages/Checkout"));
 const Login = lazy(() => import("./pages/Login"));
 const About = lazy(() => import("./pages/About"));
+const SingleProduct = lazy(() => import("./pages/SingleProduct"));
 
 export const appRoutes = [
   {
@@ -47,6 +48,11 @@ export const appRoutes = [
   {
     path: "/about",
     component: About,
+    requiresAuth: false,
+  },
+  {
+    path: "/product/:id",
+    component: SingleProduct,
     requiresAuth: false,
   },
   {

@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 const ProductCard = ({
   id,
   rating,
@@ -18,7 +19,7 @@ const ProductCard = ({
       <div className="product-details">
         <span className="product-catagory">{categoryName}</span>
         <h4>
-          <a href="##">{productName}</a>
+          <Link to={`/product/${id}`}>{productName}</Link>
         </h4>
         <p>
           {description.length > 100

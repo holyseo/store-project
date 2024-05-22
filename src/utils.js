@@ -7,6 +7,11 @@ export const fetchProducts = async () => {
   return response.data;
 };
 
+export const fetchSingleProduct = async (id) => {
+  const response = await axios.get(`${BASE_URL}/products/${id}`);
+  return response.data;
+};
+
 export const fetchCategoryProducts = async (category) => {
   const response = await axios.get(`${BASE_URL}/products/category/${category}`);
   return response.data;
