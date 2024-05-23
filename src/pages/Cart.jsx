@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-const Cart = ({ user, cartItems }) => {
+const Cart = ({ user, cartItems, setCartItems }) => {
   const navigate = useNavigate();
   return (
     <div className="cart-cont">
@@ -27,6 +27,27 @@ const Cart = ({ user, cartItems }) => {
                       ? `${item.description.substring(0, 200)}...`
                       : item.description}
                   </h4>
+                  <button
+                    onClick={() => {
+                      console.log(item.id);
+                      setCartItems((init) => {
+                        const itemToRemove = init.cartItems.find(
+                          (cartItem) => cartItem.id === item.id
+                        );
+                        return (
+                          itemToRemove && {
+                            totalAmount: init.totalAmount - itemToRemove.price,
+                            numberOfItems: init.numberOfItems - 1,
+                            cartItems: init.cartItems.filter((i) => {
+                              return i.id !== itemToRemove.id;
+                            }),
+                          }
+                        );
+                      });
+                    }}
+                  >
+                    DELETE
+                  </button>
                 </div>
               </div>
             );
