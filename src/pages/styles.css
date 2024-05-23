@@ -300,3 +300,42 @@ h3 i {
   height: 100%;
   width: 100%;
 }
+
+.single-product-cont {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 8rem;
+  padding: 0 20rem;
+}
+
+.product-detail-cont {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  gap: 2rem;
+  width: 90%;
+}
+
+.product-title,
+.product-category {
+  font-size: larger;
+  font-weight: 600;
+}
+
+.product-description {
+  font-family: monospace;
+  font-size: large;
+}
+
+.product-price {
+  color: #3c9209;
+  font-weight: 800;
+  font-size: x-large;
+}
+
+.product-image {
+  width: 100%;
+  height: auto;
+}
